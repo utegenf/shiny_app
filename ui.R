@@ -22,4 +22,38 @@ ui <- navbarPage(
     )),
     
     tags$br(),
-
+ 
+ tabsetPanel(
+      type = "tabs",
+      tabPanel(
+        "Summary",
+        ################################################
+        #### Panel: Main>Summary>Tables & Pie Chart ####
+        ################################################
+        
+        # ------------------
+        # ranking $ pie chart section
+        # ------------------
+        
+        sidebarLayout(
+          sidebarPanel(
+            h3("Data by Year"),
+            tags$br(),
+            selectInput(
+              "checkYear",
+              "Select Year",
+              choices = list("2019", "2018", "2017"),
+              selected = "2018"
+            )
+          ),
+          
+          mainPanel(
+            tabsetPanel(
+              type = "tabs",
+              tabPanel("Ranking", tableOutput("datahead")),
+            ),
+            tags$br(),
+            tags$br(),
+          )
+        ),
+        tags$hr(),
