@@ -18,7 +18,7 @@ ui <- navbarPage(
     # App title ----
     titlePanel(div(
       windowTitle = "SuicideRateSG",
-      img(src = "sg0.jpg", width = "100%", class = "bg"),
+      img(src = "suicide.jpeg", width = "100%", class = "bg"),
     )),
     
     tags$br(),
