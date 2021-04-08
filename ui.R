@@ -175,18 +175,4 @@ ui <- navbarPage(
     )
   ),
   
-  
-  
-  ################################################
-  #### Panel: Documentation                   ####
-  ################################################
-  
-  tabPanel("Documentation",
-           fluidPage(htmlOutput("doc"))),
-  
-  ################################################
-  #### Panel: About                           ####
-  ################################################
-  tabPanel("About",
-           fluidPage(htmlOutput("abo")))
 )
