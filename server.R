@@ -1,11 +1,6 @@
 library(shiny)
 library(ggplot2)
 library(dplyr)
-library(tidyr)
-library(DT)
-library(knitr)
-library(kableExtra)
-library(ggthemes)
 library(plotly)
 
 library(rsconnect)
@@ -15,11 +10,7 @@ library(shinythemes)
 ####   Attaching datasets             ####
 ##########################################
 
-#data <- read.csv("data/employment_data.csv")
-
 data <- read.csv("dataset.csv")
-data_g <- read.csv("causes.csv")
-
 
 ## Setting datatables view
 
@@ -43,7 +34,7 @@ server <- function(session, input, output) {
   
   output$datahead <- renderPrint({
     data %>%
-      filter(year == input$checkYear) %>%
+      filter(release_year == input$checkYear) %>%
       group_by(country) %>%
       select(country,
              female,
