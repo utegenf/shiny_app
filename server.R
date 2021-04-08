@@ -113,37 +113,36 @@ server <- function(session, input, output) {
   })
   
   observeEvent(
-    input$detailProducers,
+    input$detailgenre,
     updateSelectInput(
       session,
-      "detailProducers",
-      "Select School",
-      choices = unique(data$school[data$university == input$detailUniversity])
+      "detailgenre",
+      "Select Genre",
+      choices = unique(data$genre[data$producers == input$detailproducers])
     )
   )
   observeEvent(
-    input$detailSchool,
+    input$detailRating,
     updateSelectInput(
       session,
-      "detailMajor",
-      "Select Program",
-      choices = unique(data$degree[data$school == input$detailSchool &
-                                     data$university == input$detailUniversity])
+      "detailRating",
+      "Select Rating",
+      choices = unique(data$rating[data$genre == input$detailgenre &
+                                     data$producers == input$detaiproducers])
     )
   )
   
-  detailTB <- eventReactive(input$detailMajor,
+  detailTB <- eventReactive(input$detailRating,
                             {
                               data %>%
                                 filter(
-                                  school == input$detailSchool &
-                                    university == input$detailUniversity &
-                                    degree == input$detailMajor
+                                  producers == input$detailproducers &
+                                    genre == input$detailgenre &
+                                    rating == input$detailRating
                                 ) %>%
                                 select(c(
                                   "year",
-                                  "basic_monthly_median",
-                                  "employment_rate_ft_perm"
+                                  "score",
                                 ))
                               
                             })
@@ -155,8 +154,7 @@ server <- function(session, input, output) {
       detailTB() %>%
         data.frame() %>%
         kable("html",
-              col.names = c("Year", "Median Montly Income",
-                            "Fulltime Employment Rate")) %>%
+              col.names = c("Year", "Score")) %>%
         kable_styling(c("striped", "hover"), full_width = F)
     })
   })
@@ -167,7 +165,7 @@ server <- function(session, input, output) {
     input$detailFilter
     
     isolate({
-      ggplot(detailTB(), aes(x = year, y = basic_monthly_median)) +
+      ggplot(detailTB(), aes(x = year, y = score)) +
         geom_smooth(
           mapping = aes(linetype = "r2"),
           method = "lm",
@@ -178,11 +176,11 @@ server <- function(session, input, output) {
           size = 2,
           alpha = 0.5
         ) +
-        geom_line(aes(y = basic_monthly_median),
+        geom_line(aes(y = score),
                   size = 2,
                   color = "#2c3e50") +
         geom_point(
-          aes(x = year, y = basic_monthly_median),
+          aes(x = year, y = score),
           size = 7,
           shape = 21,
           colour = "white",
@@ -199,67 +197,6 @@ server <- function(session, input, output) {
     })
     
   })
-  
-  output$detailPlotem <- renderPlot({
-    input$detailFilter
-    
-    isolate({
-      ggplot(detailTB(), aes(x = year, y = employment_rate_ft_perm)) +
-        geom_smooth(
-          mapping = aes(linetype = "r2"),
-          method = "lm",
-          formula = y ~ x + log(x),
-          se = FALSE,
-          color = "#bdd5ea",
-          linetype = "dashed",
-          size = 2,
-          alpha = 0.5
-        ) +
-        geom_line(aes(y = employment_rate_ft_perm),
-                  size = 2,
-                  color = "#2c3e50") +
-        geom_point(
-          aes(x = year, y = employment_rate_ft_perm),
-          size = 7,
-          shape = 21,
-          colour = "white",
-          fill = "#fca311",
-          stroke = 5
-        ) +
-        
-        theme_hc() +
-        theme(
-          legend.title = element_blank(),
-          axis.title.x = element_blank(),
-          axis.title.y = element_blank()
-        )
-    })
-    
-  })
-  
-  ################################################
-  #### Panel: Documentation                   ####
-  ################################################
-  
-  getPageDoc <- function() {
-    return(includeHTML("gesrmarkdown.html"))
-  }
-  output$doc <- renderUI({
-    getPageDoc()
-  })
-  
-  
-  ################################################
-  #### Panel: About                           ####
-  ################################################
-  
-  getPageAbo <- function() {
-    return(includeHTML("about.html"))
-  }
-  output$abo <- renderUI({
-    getPageAbo()
-  })
-  
-  
+   
 }
   
