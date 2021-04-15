@@ -12,5 +12,5 @@ This project is aimed at providing visualizations of animations. An application 
 The whole dataset from https://www.kaggle.com/hernan4444/anime-recommendation-database-2020. This dataset contains information about 2.800 anime and the preference from 325.772 different users
 
 ## Packages used
-
+ 
 ![technology.jpg](www/technology.jpg)
