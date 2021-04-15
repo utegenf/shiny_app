@@ -402,7 +402,7 @@ server <- function(input, output,session) {
              Episodes < maxEpisode) %>%
       filter(Duration > minDuration,
              Duration < maxDuration) %>%
-      select(1, 2, 3, 4, 6, 8)
+      select(7, 2, 3, 4, 6, 10)
   })
 
   # render DT:
