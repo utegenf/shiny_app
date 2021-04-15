@@ -417,6 +417,7 @@ server <- function(input, output,session) {
         colnames = c(
           "Year",
           "Name",
+          "Score",
           "Genre",
           "Number of Episodes",
           "Duration per episode"
