@@ -13,4 +13,4 @@ The whole dataset from https://www.kaggle.com/hernan4444/anime-recommendation-da
 
 ## Packages used
  
-![technology.jpg](www/technology.jpg)
+![technology.jpeg](www/technology.jpeg)
